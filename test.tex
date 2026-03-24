@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{dsfont}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\begin{document}
+
+\hrule
+\vspace{6pt}
+
+\textbf{Exercise 1.5} \quad Verify the above properties for $2 \times 2$ determinants.
+
+\vspace{6pt}
+\hrule
+\vspace{10pt}
+
+\textbf{Exercise 1.6} \quad Using properties (1)--(5) prove that in general
+
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
+
+\item[6.] If any two rows (or columns) of a determinant are equal, the value of the determinant is zero.
+
+\item[7.] $|A^{-1}| = (|A|)^{-1}$.
+
+\item[8.] If $AA^{\dagger} = 1$, then $|A||A|^{*} = 1$.
+
+\item[9.] If $U^{\dagger}U = \Omega$ and $U^{\dagger}U = UU^{\dagger} = \mathds{1}$, then $|\Omega| = |U|^{2}$.
+
+\end{enumerate}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+\textbf{Solution}
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
+
+\item[6.] Let $|A|$ represent a determinant with two adjacent equal columns. Interchanging the columns produces a sign change: the value of the determinant is now $^-|A|$. However, since the columns are equal, the form of the determinant is unchanged, and its value is still equal to $|A|$. The only possible value of the determinant for which $^-|A| = |A|$ is $0$. In the case that equal columns are not adjacent, we simply incur a fixed number of sign changes prior to the final interchange. This does not change the result. The same argument may be made for equal rows. 
+
+
+\item[7.] 
+
+\[
+\begin{split}
+& |A||A^{-1}| = |AA^{-1}|= |\mathds{1}| = 1\\[5pt]
+& \implies |A^{-1}| = \frac{1}{|A|} = (|A|)^{-1}
+\end{split}
+\] 
+
+
+\item[8.] 
+
+\[
+\begin{split}
+& |A|(|A|)^* = |A|((|A^{\dagger}|)^*)^* \\[5pt]
+& = |A||A^{\dagger}| = |AA^{\dagger}|= |\mathds{1}|= 1\\
+\end{split}
+\] 
+
+\item[9.] 
+
+\[
+\begin{split}
+& |O| = |U \Omega U^{\dagger}| = |U||\Omega||U^{\dagger}|\\[5pt]
+& = |\Omega||U||U^{\dagger}| = |\Omega||UU^{\dagger}| = |\Omega||\mathds{1}| = |\Omega| \\
+\end{split}
+\] 
+
+\end{enumerate}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+\textbf{Exercise 1.7} \quad Using Eq.\ (1.39), note that the inverse of a $2 \times 2$ matrix $A$ obtained in Exercise 1.4f can be written as
+
+\vspace{10pt}
+
+\[
+A^{-1} = \frac{1}{|A|}
+\begin{pmatrix}
+A_{22} & -A_{12} \\
+-A_{21} & A_{11}
+\end{pmatrix}
+\]
+
+\end{document}
