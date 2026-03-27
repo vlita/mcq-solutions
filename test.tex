@@ -1,92 +1,213 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath, amssymb}
-\usepackage{dsfont}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+%\usepackage{enumitem}
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{4pt}
+% Required package for custom headers and footers
+\usepackage{fancyhdr} 
+
+% Set the page style to 'fancy' to use fancyhdr's customization
+\pagestyle{fancy} 
+
+% Clear all header and footer fields first
+\fancyhead{} 
+\fancyfoot{} 
+
+% Customize the header
+\lhead{Victor L. Lita} 
+\rhead{\thepage}  % Puts the page number on the right
+
+\newcommand\mylim[2]{%
+    \begin{array}[t]{@{}l@{}}
+     \lim #1 \\[-1ex] \scriptstyle #2 
+    \end{array}
+}
+
 
 \begin{document}
-
-\hrule
-\vspace{6pt}
-
-\textbf{Exercise 1.5} \quad Verify the above properties for $2 \times 2$ determinants.
-
-\vspace{6pt}
-\hrule
-\vspace{10pt}
-
-\textbf{Exercise 1.6} \quad Using properties (1)--(5) prove that in general
+\begin{center}
+{\large \textbf{Chapter 1. Mathematical Review}}\\[6pt]
+\end{center}
 
 \begin{enumerate}
-\setlength{\itemsep}{4pt}
 
-\item[6.] If any two rows (or columns) of a determinant are equal, the value of the determinant is zero.
+\item 
+% (5 points)
+%     Let $T_{comp}(n,p)$ and $T_{comm}(n,p)$ denote the parallel computation and communication times, 
+%     respectively, on a parallel architecture for sorting $n$ elements on $p$ processors. Now consider 
+%     routing a permutation on this architecture where each processor has a message of size $m$ for 
+%     another processor such that no two source or destination processors are the same. 
+%     Design an algorithm to solve this permutation routing problem using only parallel sorting, 
+%     and compute its run-time.
 
-\item[7.] $|A^{-1}| = (|A|)^{-1}$.
+% \textbf{Solution:} \\
+    In order to route a permutation on $p$ processors in which no two source or destination processors are the same, we must determine unique processor pairs. We can accomplish this by performing a p-element parallel sort with the rank of each processor, utilizing an arbitrary comparison criterion. Once the algorithm completes, each of the p processors will contain the rank with which it will communicate. Any comparison criterion that results in unique pairs may be used. The communication time of this algorithm will scale as $T_{comm}(p,p)$, and the computation time will scale as $T_{comp}(p,p)$.
+    
+  
+\item 
+% (5 points)
+%     Consider the parallel sample sort algorithm described in class and assume $p$
+%     divides $n$. Suppose input is presented to the algorithm such that all elements are
+%     unique and they are in decreasing order (globally) with each processor initially
+%     having $\frac{n}{p}$ elements. After running the sample sort algorithm to sort the
+%     input in ascending order, compute the number of elements per processor as a function
+%     of the processor rank.
 
-\item[8.] If $AA^{\dagger} = 1$, then $|A||A|^{*} = 1$.
+      
 
-\item[9.] If $U^{\dagger}U = \Omega$ and $U^{\dagger}U = UU^{\dagger} = \mathds{1}$, then $|\Omega| = |U|^{2}$.
-
-\end{enumerate}
-
-\vspace{10pt}
-\hrule
-\vspace{10pt}
-\textbf{Solution}
-\begin{enumerate}
-\setlength{\itemsep}{4pt}
-
-\item[6.] Let $|A|$ represent a determinant with two adjacent equal columns. Interchanging the columns produces a sign change: the value of the determinant is now $^-|A|$. However, since the columns are equal, the form of the determinant is unchanged, and its value is still equal to $|A|$. The only possible value of the determinant for which $^-|A| = |A|$ is $0$. In the case that equal columns are not adjacent, we simply incur a fixed number of sign changes prior to the final interchange. This does not change the result. The same argument may be made for equal rows. 
-
-
-\item[7.] 
-
+% \textbf{Solution:} \\
+The number of elements between local splitters on any processor may be calculated as 
 \[
-\begin{split}
-& |A||A^{-1}| = |AA^{-1}|= |\mathds{1}| = 1\\[5pt]
-& \implies |A^{-1}| = \frac{1}{|A|} = (|A|)^{-1}
-\end{split}
-\] 
-
-
-\item[8.] 
-
+\frac{1}{p}\left(\frac{n}{p}-(p-1)\right) 
+\]
+Where $p-1$ represents the number of local splitters and here $p$ represents the number of local segments. The number of elements up to and including the last local splitter on each processor is therefore
 \[
-\begin{split}
-& |A|(|A|)^* = |A|((|A^{\dagger}|)^*)^* \\[5pt]
-& = |A||A^{\dagger}| = |AA^{\dagger}|= |\mathds{1}|= 1\\
-\end{split}
-\] 
+(p-1)\left(\frac{1}{p}\left(\frac{n}{p}-(p-1)\right)+1\right) =(p-1)\left(\frac{n}{p^2}+\frac{1}{p}\right) \equiv n_s
+\]
+Assuming unique input elements initially sorted in decreasing order, following the sample sort the number of elements on processor $i$ (denoted $N_i$) may be expressed as follows:
 
-\item[9.] 
-
+% the first processor will contain all elements up to and including the $1^{st}$ global splitter, the second processor will contain elements up to and including the $2^{nd}$ global splitter, ect. In terms of processor rank:
 \[
-\begin{split}
-& |O| = |U \Omega U^{\dagger}| = |U||\Omega||U^{\dagger}|\\[5pt]
-& = |\Omega||U||U^{\dagger}| = |\Omega||UU^{\dagger}| = |\Omega||\mathds{1}| = |\Omega| \\
-\end{split}
-\] 
-
-\end{enumerate}
-
-\vspace{10pt}
-\hrule
-\vspace{10pt}
-
-\textbf{Exercise 1.7} \quad Using Eq.\ (1.39), note that the inverse of a $2 \times 2$ matrix $A$ obtained in Exercise 1.4f can be written as
-
-\vspace{10pt}
-
+N_i =
+\begin{cases}
+    n_s & \text{if } i = 0, \\[6pt]
+    n_s + \left(\dfrac{n}{p} -n_s\right)& \text{if } 0 < i \leq p - 2, \\[8pt]
+    n - \displaystyle\sum_{j=0}^{p-2} N_j & \text{if } i = p - 1
+\end{cases}
+\]
+Which has the closed form solution:
 \[
-A^{-1} = \frac{1}{|A|}
-\begin{pmatrix}
-A_{22} & -A_{12} \\
--A_{21} & A_{11}
-\end{pmatrix}
+N_i =
+\begin{cases}
+    n_s & \text{if } i = 0, \\[6pt]
+    \dfrac{n}{p}& \text{if } 0 < i \leq p - 2, \\[8pt]
+    2 \dfrac{n}{p}-n_s & \text{if } i = p - 1
+\end{cases}
 \]
 
+\item 
+Visually, the embedding may be depicted in the following way (for $p=8$): \\[6pt]
+% (5 points)
+%     Show that a $p$-processor ring can be embedded into a $p$-processor array such that for 
+%     each pair of neighboring processors in the ring, the corresponding processors in the 
+%     array are separated by no more than two links. You must write down the mapping function 
+%     from ring to array that works for arbitrary values of $p$.
+
+% \textbf{Solution:} \\
+\begin{center}
+    
+\begin{tikzpicture}[scale=1.2]
+  % Top numbers
+  \foreach \x in {0,1,2,3,4,5,6,7} {
+    \node at (\x,-1.0) {\x};
+  }
+  
+  % Legend
+  \draw[blue, line width=2pt] (7.7,0.2) -- (7.9,0.2);
+  \node[anchor=west] at (7.95,0.2) {: Array};
+  \draw[green!60!black, line width=2pt] (7.7,-0.2) -- (7.9,-0.2);
+  \node[anchor=west] at (7.95,-0.2) {: Ring};
+  
+  % Array (blue line with dots)
+  \draw[blue, thick] (0,0) -- (7,0);
+  \foreach \x in {0,1,2,3,4,5,6,7} {
+    \fill[blue] (\x,0) circle (3pt);
+  }
+  
+  % Ring (green line segments)
+  
+  % Top horizontal lines
+  \draw[green!60!black, thick] (0,0.0) -- (1,0.0);
+  % \draw[green!60!black, thick] (0,0.4) -- (2,0.4);
+  
+  \draw[green!60!black, thick] (1,0.4) -- (4,0.4);
+  \draw[green!60!black, thick] (4,0.4) -- (6,0.4);
+  \draw[green!60!black, thick] (6,0.4) -- (7,0.4);
+  
+  % Bottom horizontal lines
+  \draw[green!60!black, thick] (0,-0.4) -- (2,-0.4);
+  \draw[green!60!black, thick] (2,-0.4) -- (4,-0.4);
+  \draw[green!60!black, thick] (4,-0.4) -- (6,-0.4);
+  \draw[green!60!black, thick] (6, 0.0) -- (7, 0.0);
+  
+  % Vertical lines
+  \draw[green!60!black, thick] (0,-0.4) -- (0,0.0);
+  \draw[green!60!black, thick] (1, 0.0) -- (1,0.4);
+  \draw[green!60!black, thick] (2,-0.4) -- (2,0.0);
+  \draw[green!60!black, thick] (3, 0.0) -- (3,0.4);
+  \draw[green!60!black, thick] (4,-0.4) -- (4,0.0);
+  \draw[green!60!black, thick] (5, 0.0) -- (5,0.4);
+  \draw[green!60!black, thick] (6,-0.4) -- (6,0.0);
+  \draw[green!60!black, thick] (7, 0.0) -- (7,0.4);
+  
+  % Bottom numbers
+  % \node at (0,-1) {000};
+  % \node at (1,-1) {001};
+  % \node at (2,-1) {010};
+  % \node at (3,-1) {011};
+  % \node at (4,-1) {100};
+  % \node at (5,-1) {101};
+  % \node at (6,-1) {110};
+  % \node at (7,-1) {111};
+  
+\end{tikzpicture}
+\end{center}
+
+The function for mapping index $i$ of the array to index $G(i)$ of the ring may be expressed as:
+
+\[
+\begin{split}
+& G(0) = 0\\[5pt]
+& G(1) = 1 \\[5pt]
+& G(i) = \begin{cases}
+    2i-1 & \text{if } i \leq \dfrac{p}{2} \\[6pt]
+    2(p-i) & \text{if } i > \dfrac{p}{2} \\
+\end{cases}
+\end{split}
+\] 
+
+\item 
+% (5 points)
+%       A Binomial tree of height $d$, termed $B(d)$ is defined as follows:
+%       If $d=0$, then $B(0)$ is a single node. Otherwise, $B(d)$ is
+%       constructed by taking two binomial trees of height $d-1$ and
+%       making the root of one tree the child of the root of the other
+%       tree. Show that $B(d)$ can be embedded using hypercubic permutations.
+%       ({\bf Hint:} Think recursion).
+
+% \textbf{Solution:} \\
+As an inductive hypothesis, assume that $B(d-1)$ can be embedded using hypercubic permutations. Therefore we can represent nodes by bit strings of length $d-1$, with connections between nodes that differ in exactly one bit. To map tree $B(d)$, we can take two copies of $B(d-1)$ and prepend $0$ to the ids of each node in the copy that contains the new root. We can then prepend $1$ to the ids of each node in the second copy, and make its root node the child of the first copy. In this way, connected nodes still differ by one bit. The base case is a tree of height $d=1$, where the root node is labeled by $0$ and the child is labeled by $1$.
+
+% The maximum number of connections between nodes in a binomial tree of height $d$ is $d$. Thus we can represent the binomial tree using relaxed hypercubic permutations, in which nodes are represented by bit string ids of length d, and nodes that differ in only one bit are connected. To map a tree of height $d$, take the ids of tree $B(d-1)$ containing the new root and add $0$ to the right side of each id. Take the ids of tree $B(d-1)$ (who's root will be attached to the new root) and add $1$ to the right side of each id. The base case of our recursion is $d = 1$, a binomial tree with only two elements, where the root of the tree is denoted by $0$, and the leaf is denoted by $1$ (For $d=0$ there is no need to label the single node with an id).
+
+\vspace*{\baselineskip}
+
+\item 
+% (5 points)
+%     A three dimensional torus of size $16\times 16\times 8$ is embedded in a $2,048$-processor
+%     parallel computer that can route hypercubic permutations.
+%     \begin{enumerate}
+%         \item Determine rank of the processor to which ($5, 12, 3$) is mapped.
+%         \item What is the torus rank of processor $868$?
+%     \end{enumerate}
+% \textbf{Solution:} \\
+    \begin{enumerate}
+        \item Using the $4$-bit gray code for the first $2$ indicies, and the $3$-bit gray code for the $3^{rd}$ index, the corresponding processor id in the $2^{11}$-processor computer is
+        \[
+        01111010010 \text{ $\rightarrow$ id } 978
+        \]
+        
+        \item The binary representation of id $868$ is $01101100100$. Breaking the representation down into the corresponding torus indices, $0110 \rightarrow 4$, $1100 \rightarrow 8$, $100 \rightarrow 7$. Therefore, the torus rank is:
+        \[
+        (4, 8, 7)
+        \]
+    \end{enumerate}
+
+
+\end{enumerate}
 \end{document}
