@@ -8,21 +8,22 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{4pt}
 
-% \usepackage{fancyhdr} 
+\usepackage{fancyhdr} 
 
-% % Set the page style to 'fancy' to use fancyhdr's customization
-% \pagestyle{fancy} 
+% Set the page style to 'fancy' to use fancyhdr's customization
+\pagestyle{fancy} 
 
-% % Clear all header and footer fields first
-% \fancyhead{} 
-% \fancyfoot{} 
+% Clear all header and footer fields first
+\fancyhead{} 
+\fancyfoot{} 
 
-% % Customize the header
-% \lhead{Victor L. Lita} 
-% \rhead{\thepage}  % Puts the page number on the right
+% Customize the header
+\lhead{Victor L. Lita} 
+\chead{}
+\rhead{Chapter 1. Solutions -- \thepage}  % Puts the page number on the right
 
 \begin{document}
-
+\thispagestyle{plain}
 \begin{center}
 {\large \textbf{Chapter 1. Mathematical Review}}\\[6pt]
 \end{center}
@@ -39,8 +40,29 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 \vspace{10pt}
 % \hrule
 % \vspace{10pt}
-\textbf{Solution}
-
+\textbf{Solution} 
+\begin{enumerate}
+    \item[a)]
+        \[
+        \begin{split}
+        \mathcal{O} \vec{e}_j  = \sum_{i'=1}^{3} \vec{e}_{i'} O_{i'j} \\
+         \implies \vec{e}_i \cdot \mathcal{O}\vec{e}_j & = \vec{e}_i \cdot \sum_{i'=1}^{3} \vec{e}_{i'} O_{i'j} \\
+        & = \sum_{i'=1}^{3} \delta_{i,i'} O_{i'j} \\[1em]
+        & = (1) O_{ij}
+        \end{split}
+        \]
+    \item[b)]
+        \[
+        \begin{split}
+        b_i = \vec{e}_i \cdot \vec{b} \\
+         = \vec{e}_i \cdot \mathcal{O}\vec{a} & = \vec{e}_i \cdot \mathcal{O} \left( \sum_j \vec{e}_j a_j\right)\\
+        & = \vec{e}_i \cdot \sum_j \left( \sum_{i'} \vec{e}_{i'}O_{i'j} \right) a_j \\
+        & = \sum_j \left( \sum_{i'} \delta_{i'i}O_{i'j} \right) a_j \\
+        & = \sum_{j} O_{ij} a_j \\
+        \end{split}
+        \]
+    
+\end{enumerate}
 \vspace{10pt}
 \hrule
 \vspace{10pt}
@@ -67,6 +89,58 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 
 \vspace{10pt}
 \textbf{Solution}
+\[
+\begin{split}
+[\mathbf{A},\mathbf{B}] &= \begin{pmatrix}
+1 & 1 & 0 \\
+1 & 2 & 2 \\
+0 & 2 & -1
+\end{pmatrix}
+\begin{pmatrix}
+1 & -1 & 1 \\
+-1 & 0 & 0 \\
+1 & 0 & 1
+\end{pmatrix} -
+\begin{pmatrix}
+1 & -1 & 1 \\
+-1 & 0 & 0 \\
+1 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 1 & 0 \\
+1 & 2 & 2 \\
+0 & 2 & -1
+\end{pmatrix} \\[2em]
+& = \begin{pmatrix}
+0 & -1 & 1 \\
+1 & -1 & 3 \\
+-3 & 0 & -1
+\end{pmatrix} -
+\begin{pmatrix}
+0 & 1 & -3 \\
+-1 & -1 & 0 \\
+1 & 3 & -1
+\end{pmatrix} = \begin{pmatrix}
+0 & -2 & 4 \\
+2 & 0 & 3 \\
+-4 & -3 & 0
+\end{pmatrix} \\[3em]
+\{\mathbf{A},\mathbf{B}\} &= \begin{pmatrix}
+0 & -1 & 1 \\
+1 & -1 & 3 \\
+-3 & 0 & -1
+\end{pmatrix} +
+\begin{pmatrix}
+0 & 1 & -3 \\
+-1 & -1 & 0 \\
+1 & 3 & -1
+\end{pmatrix} = \begin{pmatrix}
+0 & 0 & -2 \\
+0 & -2 & 3 \\
+-2 & 3 & -2
+\end{pmatrix}
+\end{split}
+\]
 
 \vspace{10pt}
 \hrule
@@ -122,8 +196,6 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 \end{enumerate}
 
 \vspace{10pt}
-% \hrule
-% \vspace{10pt}
 \textbf{Solution}
 \begin{enumerate}
 \setlength{\itemsep}{4pt}
@@ -178,6 +250,92 @@ where $\mathbf{A}$ is an $N \times N$ matrix and $\mathbf{c}$ is a column matrix
 \vspace{10pt}
 % \hrule
 % \vspace{10pt}
+\textbf{Solution} \\[1em]
+Consider the linear system
+\[
+\begin{split}
+    & A_{11} c_1 + A_{12} c_2 + A_{13} c_3 + \ldots + A_{1N} c_N = 0 \\
+    & A_{21} c_1 + A_{22} c_2 + A_{23} c_3 + \ldots + A_{2N} c_N = 0 \\
+    & \ldots\\
+    & A_{N1} c_1 + A_{N2} c_2 + A_{N3} c_3 + \ldots + A_{NN} c_N = 0 \\
+\end{split}
+\]
+that arises from the equation $\mathbf{Ac} = \mathbf{0}$ for an $N \times N$ matrix. Permuting the equations of the linear system does not affect the solution vector $\mathbf{c}$. However, permuting rows of $\mathbf{A}$ changes the sign of $|\mathbf{A}|$. Therefore, it is only possible for a nontrivial solution to exist under the condition $|\mathbf{A}| = -|\mathbf{A}|$, which is only true when $|\mathbf{A}| = 0$. \\
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+\textbf{Exercise 1.8} \quad Show that the trace of a matrix is invariant under a unitary transformation, ie., if \\
+\[
+\mathbf{\Omega} = \mathbf{U^{\dagger}OU}
+\]
+then show that $\text{tr}\mathbf{\Omega} = \text{tr}\mathbf{O}$.
+
+\vspace{10pt}
 \textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+\textbf{Exercise 1.9} \quad Show that Eq.(1.90) contains Eq.(1.87) for all $\alpha = 1, 2,\ldots,N$.
+
+\vspace{10pt}
+\textbf{Solution}
+
+\[
+\begin{split}
+    \mathbf{Oc}^\alpha = \omega_\alpha \mathbf{c}^\alpha \text{ (1.87)} \quad \quad  \mathbf{OU} = \mathbf{U} \begin{pmatrix}
+\omega_1 & & \smash{\raisebox{-1.5ex}{\text{\Large 0}}} \\
+ & \ddots & \\
+\smash{\raisebox{1.5ex}{\text{\Large 0}}} & & \omega_N
+\end{pmatrix} = \mathbf{U}\boldsymbol{\omega} \text{ (1.90)}
+\end{split}
+\]
+\[
+\begin{split}
+   \implies \mathbf{OU} & = \begin{pmatrix}
+O_{11} & O_{12} & \cdots & O_{1N} \\
+O_{21} & O_{21} & \cdots & O_{2N} \\
+\vdots & \vdots & \ddots & \vdots \\
+O_{N1} & O_{N2} & \cdots & O_{NN}
+\end{pmatrix} \begin{pmatrix}
+c_1^1 & c_1^2 & \cdots & c_1^N \\
+c_2^1 & c_2^2 & \cdots & c_2^N \\
+\vdots & \vdots & \ddots & \vdots \\
+c_N^1 & c_N^2 & \cdots & c_N^N
+\end{pmatrix} \\[1em]
+& = \begin{pmatrix}
+    \sum_{j} O_{1j} c_{j}^1 & \sum_{j} O_{1j} c_{j}^2 & \ldots & \sum_{j} O_{1j} c_{j}^N \\
+    \sum_{j} O_{2j} c_{j}^1 & \sum_{j} O_{2j} c_{j}^2 & \ldots & \sum_{j} O_{2j} c_{j}^N \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \sum_{j} O_{Nj} c_{j}^1 & \sum_{j} O_{Nj} c_{j}^2 & \ldots & \sum_{j} O_{Nj} c_{j}^N \\
+\end{pmatrix} \\[1em]
+& = \begin{pmatrix}
+    \mathbf{Oc}^1 & \mathbf{Oc}^2 & \ldots & \mathbf{Oc}^N
+\end{pmatrix} = \begin{pmatrix}
+    \omega_1\mathbf{c}^1 & \omega_2\mathbf{c}^2 & \ldots & \omega_3\mathbf{c}^N
+\end{pmatrix} \\[1em]
+& = \begin{pmatrix}
+    \omega_1 c_{1}^1 & \omega_2 c_{1}^2 & \ldots & \omega_N c_{1}^N \\
+    \omega_1 c_{2}^1 & \omega_2 c_{2}^2 & \ldots & \omega_N c_{2}^N \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \omega_1 c_{N}^1 &\omega_2 c_{N}^2 & \ldots & \omega_N c_{N}^N \\
+\end{pmatrix} \\[1em]
+& =  \begin{pmatrix}
+c_1^1 & c_1^2 & \cdots & c_1^N \\
+c_2^1 & c_2^2 & \cdots & c_2^N \\
+\vdots & \vdots & \ddots & \vdots \\
+c_N^1 & c_N^2 & \cdots & c_N^N
+\end{pmatrix} \begin{pmatrix}
+\omega_1 & & \smash{\raisebox{-1.5ex}{\text{\Large 0}}} \\
+ & \ddots & \\
+\smash{\raisebox{1.5ex}{\text{\Large 0}}} & & \omega_N
+\end{pmatrix} = \mathbf{U}\boldsymbol{\omega}
+\end{split}
+\]
+\vspace{10pt}
+\hrule
+\vspace{10pt}
 
 \end{document}

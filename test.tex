@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{dsfont}
+\usepackage[colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage[most]{tcolorbox}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\usepackage{fancyhdr} 
+\pagestyle{fancy} 
+\fancyhead{} 
+\fancyfoot{} 
+\lhead{Victor L. Lita} 
+\rhead{\thepage}
+
+% ===== Exercise Counter =====
+\newcounter{exercise}
+\renewcommand{\theexercise}{1.\arabic{exercise}}
+
+% ===== TOC anchor =====
+\newcommand{\tocanchor}{\hypertarget{toc}{}}
+
+% ===== Exercise Environment (Boxed + TOC + backlink) =====
+\newenvironment{exercise}{
+    \refstepcounter{exercise}
+    \addcontentsline{toc}{subsection}{Exercise \theexercise}
+    \begin{tcolorbox}[
+        colback=gray!5,
+        colframe=black,
+        title=\hyperlink{toc}{\textcolor{gray!5}{Exercise \theexercise}},
+        fonttitle=\bfseries
+    ]
+}{
+    \end{tcolorbox}
+    \vspace{6pt}
+}
+
+% ===== Solution =====
+\newenvironment{solution}{
+    \vspace{4pt}
+    \noindent\textbf{Solution}
+    \vspace{4pt}
+}{\vspace{10pt}}
+
+% ===== Remove "Contents" title =====
+\makeatletter
+\renewcommand{\contentsname}{}
+\makeatother
+
+\begin{document}
+
+\begin{center}
+{\large \textbf{Chapter 1. Mathematical Review}}
+\end{center}
+
+% \vspace{10pt}
+
+\tocanchor
+\tableofcontents
+
+\vspace{15pt}
+
+% ===================== Exercises =====================
+
+\begin{exercise}\label{ex:1.1}
+a) Show that $O_{ij} = \vec{e}_i \cdot \mathcal{O}\vec{e}_j$.
+\quad
+b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+\begin{exercise}\label{ex:1.2}
+Calculate $[\mathbf{A},\mathbf{B}]$ and $\{\mathbf{A},\mathbf{B}\}$ when
+\[
+\mathbf{A} =
+\begin{pmatrix}
+1 & 1 & 0 \\
+1 & 2 & 2 \\
+0 & 2 & -1
+\end{pmatrix}
+\qquad
+\mathbf{B} =
+\begin{pmatrix}
+1 & -1 & 1 \\
+-1 & 0 & 0 \\
+1 & 0 & 1
+\end{pmatrix}
+\]
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+\begin{exercise}\label{ex:1.3}
+If $\mathbf{A}$ is an $N \times M$ matrix and $\mathbf{B}$ is a $M \times K$ matrix show that $(\mathbf{AB})^{\dagger} = \mathbf{B}^{\dagger}\mathbf{A}^{\dagger}$.
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+\begin{exercise}\label{ex:1.4}
+Show that
+\begin{enumerate}
+\item[a.] $\text{tr}\,\mathbf{AB} = \text{tr}\,\mathbf{BA}$.
+\item[b.] $(\mathbf{AB})^{-1} = \mathbf{B}^{-1}\mathbf{A}^{-1}$.
+\item[c.] If $\mathbf{U}$ is unitary and $\mathbf{B} = \mathbf{U}^{\dagger}\mathbf{AU}$, then $\mathbf{A} = \mathbf{UBU}^{\dagger}$.
+\item[d.] If the product $\mathbf{C} = \mathbf{AB}$ of two Hermitian matrices is also Hermitian, then $\mathbf{A}$ and $\mathbf{B}$ commute.
+\item[e.] If $\mathbf{A}$ is Hermitian then $\mathbf{A}^{-1}$, if it exists, is also Hermitian.
+\item[f.] If $\mathbf{A} = \begin{pmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{pmatrix}$, then
+\[
+\mathbf{A}^{-1} =
+\frac{1}{(A_{11}A_{22} - A_{12}A_{21})}
+\begin{pmatrix}
+A_{22} & -A_{12} \\
+-A_{21} & A_{11}
+\end{pmatrix}.
+\]
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+\begin{exercise}\label{ex:1.5}
+Verify the above properties for $2 \times 2$ determinants.
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+\begin{exercise}\label{ex:1.6}
+Using properties (1)--(5) prove that in general
+\begin{enumerate}
+\item[6.] If any two rows (or columns) are equal, the determinant is zero.
+\item[7.] $|\mathbf{A}^{-1}| = (|\mathbf{A}|)^{-1}$.
+\item[8.] If $\mathbf{A}\mathbf{A}^{\dagger} = 1$, then $|\mathbf{A}||\mathbf{A}|^{*} = 1$.
+\item[9.] If $\mathbf{U}^{\dagger}\mathbf{U} = \mathbf{\Omega}$ and $\mathbf{U}^{\dagger}\mathbf{U} = \mathbf{U}\mathbf{U}^{\dagger} = \mathds{1}$, then $|\mathbf{O}| = |\mathbf{\Omega}|$.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+% (kept your previous work)
+\end{solution}
+
+\begin{exercise}\label{ex:1.7}
+Show that the equation
+\[
+\mathbf{A}\mathbf{c} = \mathbf{0}
+\]
+has a nontrivial solution only when $|\mathbf{A}| = 0$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\end{document}
