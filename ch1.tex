@@ -2,6 +2,7 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath, amssymb}
+\usepackage{hyperref}
 \usepackage{dsfont}
 % \usepackage{xcolor}
 
@@ -20,19 +21,34 @@
 % Customize the header
 \lhead{Victor L. Lita} 
 \chead{}
-\rhead{Chapter 1. Solutions -- \thepage}  % Puts the page number on the right
+\rhead{Chapter 1 Solutions -- \thepage}  % Puts the page number on the right
+
+% Exercise heading with clickable TOC entry
+\newcommand{\exercise}[1]{%
+    \par
+    \phantomsection
+    \addcontentsline{toc}{subsection}{Exercise #1}%
+    \noindent\hyperlink{toc}{\textbf{Exercise #1}}\quad
+}
 
 \begin{document}
-\thispagestyle{plain}
+\thispagestyle{empty}
 \begin{center}
 {\large \textbf{Chapter 1. Mathematical Review}}\\[6pt]
 \end{center}
 
-\vspace{10pt}
-\hrule
-\vspace{10pt}
+\hypertarget{toc}{}
+\begingroup
+\renewcommand{\contentsname}{}
+\tableofcontents
+\endgroup
+\newpage
 
-\textbf{Exercise 1.1} \quad
+% \vspace{10pt}
+% \hrule
+% \vspace{10pt}
+
+\exercise{1.1}
 a) Show that $O_{ij} = \vec{e}_i \cdot \mathcal{O}\vec{e}_j$.
 \quad
 b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
@@ -67,7 +83,7 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.2} \quad Calculate $[\mathbf{A},\mathbf{B}]$ and $\{\mathbf{A},\mathbf{B}\}$ when
+\exercise{1.2} Calculate $[\mathbf{A},\mathbf{B}]$ and $\{\mathbf{A},\mathbf{B}\}$ when
 
 \vspace{10pt}
 
@@ -146,16 +162,27 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.3} \quad If $\mathbf{A}$ is an $N \times M$ matrix and $\mathbf{B}$ is a $M \times K$ matrix show that $(\mathbf{AB})^{\dagger} = \mathbf{B}^{\dagger}\mathbf{A}^{\dagger}$.
+\exercise{1.3} If $\mathbf{A}$ is an $N \times M$ matrix and $\mathbf{B}$ is a $M \times K$ matrix show that $(\mathbf{AB})^{\dagger} = \mathbf{B}^{\dagger}\mathbf{A}^{\dagger}$.
 
 \vspace{10pt}
 \textbf{Solution}
+\[
+\begin{split}
+    ((\mathbf{AB})^{\dagger})_{ij} = (\mathbf{AB})_{ji}^* & = \left(\sum_{k=1}^M \mathbf{A}_{jk} \mathbf{B}_{ki}\right)^* \\[1em]
+    & = \sum_{k=1}^M \mathbf{A}_{jk}^* \mathbf{B}_{ki}^* \\[1em]
+    & = \sum_{k=1}^M (\mathbf{A}^\dagger)_{kj} (\mathbf{B}^\dagger)_{ik} \\[1em]
+    & = \sum_{k=1}^M (\mathbf{B}^\dagger)_{ik} (\mathbf{A}^\dagger)_{kj} \\[1em]
+    & = (\mathbf{B}^\dagger \mathbf{A}^\dagger)_{ij} 
+    \text{ for } i= 1, \ldots, N
+    \text{ and } j= 1, \ldots, K
+\end{split}
+\]
 
 \vspace{10pt}
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.4} \quad Show that
+\exercise{1.4} Show that
 \begin{enumerate}
 \setlength{\itemsep}{4pt}
 \item[a.] $\text{tr}\,\mathbf{AB} = \text{tr}\,\mathbf{BA}$.
@@ -167,20 +194,238 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 \end{enumerate}
 \vspace{10pt}
 \textbf{Solution}
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
+\item[a.] 
+    \[
+    \begin{split}
+        \text{tr}\,\mathbf{AB}  & = \sum_i (\mathbf{AB})_{ii} \\[1em]
+        & = \sum_{ik}\mathbf{A}_{ik}\mathbf{B}_{ki} = \sum_{ki}\mathbf{B}_{ki}\mathbf{A}_{ik} = \sum_k (\mathbf{BA})_{kk} = \text{tr}\,\mathbf{BA}
+    \end{split}
+    \]
+
+
+\item[b.]
+    \[
+    \begin{split}
+        (\mathbf{AB})^{-1} 
+        & = (\mathbf{AB})^{-1} \mathds{1} \\[1em]
+        & = (\mathbf{AB})^{-1} \mathbf{A} \mathbf{A}^{-1} 
+        = (\mathbf{AB})^{-1} \mathbf{A} \mathds{1} \mathbf{A}^{-1} \\[1em]
+        & = (\mathbf{AB})^{-1} \mathbf{A} (\mathbf{B} \mathbf{B}^{-1}) \mathbf{A}^{-1}
+        = (\mathbf{AB})^{-1} (\mathbf{AB}) \mathbf{B}^{-1} \mathbf{A}^{-1} \\[1em]
+        & = \mathbf{B}^{-1}\mathbf{A}^{-1}
+    \end{split}
+    \]
+
+\item[c.]
+    \[
+    \begin{split}
+        \mathbf{B} & = \mathbf{U}^{\dagger}\mathbf{AU} \\[1em]
+        \mathbf{U} \mathbf{B} & = \mathbf{U} \mathbf{U}^{\dagger}\mathbf{AU} \\[1em]
+        \mathbf{U} \mathbf{B}\mathbf{U}^{\dagger} & = \mathbf{U} \mathbf{U}^{\dagger} \mathbf{AU}\mathbf{U}^{\dagger} \\[1em]
+        \therefore \mathbf{A} & = \mathbf{UBU}^{\dagger}
+    \end{split}
+    \]
+
+\item[d.]
+    \[
+    \begin{split}
+        [\mathbf{A},\mathbf{B}] &= \mathbf{AB} - \mathbf{BA} = \mathbf{C} - \mathbf{BA} = \mathbf{C}^\dagger - \mathbf{BA}\\[1em]
+        & = (\mathbf{AB})^\dagger - \mathbf{BA} = \mathbf{B}^\dagger \mathbf{A}^\dagger - \mathbf{BA}= \mathbf{BA} - \mathbf{BA} = 0\\[1em]
+        & \implies \mathbf{A},\mathbf{B} \text{ commute.}
+    \end{split}
+    \]
+
+\item[e.]
+    \[
+    \begin{split}
+        \mathbf{A}^{-1} & = \mathbf{A}^{-1} \mathds{1} = \mathbf{A}^{-1} \mathds{1}^{\dagger} = \mathbf{A}^{-1} (\mathbf{A}^{-1} \mathbf{A})^\dagger\\[1em]  & = \mathbf{A}^{-1} (\mathbf{A}^\dagger)^\dagger (\mathbf{A}^{-1})^\dagger = \mathds{1} (\mathbf{A}^{-1})^\dagger = (\mathbf{A}^{-1})^\dagger \\[1em]
+        &\implies \mathbf{A}^{-1} \text{ is Hermitian. }
+    \end{split}
+    \]
+
+\item[f.]
+    \[
+    \begin{split}
+    & \mathbf{A} = \begin{pmatrix}
+    A_{11} & A_{12} \\
+    A_{21} & A_{22} \\
+    \end{pmatrix}  \begin{pmatrix}
+    a & b \\
+    c & d \\
+    \end{pmatrix} = \begin{pmatrix}
+    1 & 0 \\
+    0 & 1 \\
+    \end{pmatrix} \\[1em]
+    & aA_{11} + cA_{12} =1 \qquad bA_{11} + dA_{12} =0 \\[1em]
+    & aA_{21} + cA_{22} =0 \qquad bA_{21} + dA_{22} =1 \\[1em]
+    & \Rightarrow \quad-c \left(\frac{A_{22}}{A_{21}} \right)A_{11} + c A_{12} = 1 \\[1em]
+     & \qquad \quad c = -A_{21} \left(\frac{1}{A_{11}A_{22}-A_{12}A_{21}}\right)\\[1em]
+    & \Rightarrow \quad-d \left(\frac{A_{12}}{A_{11}} \right)A_{11} + d A_{22} = 1 \\[1em]
+     & \qquad \quad d = A_{11} \left(\frac{1}{A_{11}A_{22}-A_{12}A_{21}}\right)\\[1em]
+     & \Rightarrow \quad-b \left(\frac{A_{11}}{A_{12}} \right)A_{22} + b A_{21} = 1 \\[1em]
+     & \qquad \quad b = -A_{12} \left(\frac{1}{A_{11}A_{22}-A_{12}A_{21}}\right)\\[1em]
+     & \Rightarrow \quad-a \left(\frac{A_{21}}{A_{22}} \right)A_{12} + a A_{11} = 1 \\[1em]
+     & \qquad \quad a = A_{22} \left(\frac{1}{A_{11}A_{22}-A_{12}A_{21}}\right)\\[2em]
+     & \therefore \mathbf{A}^{-1} = \dfrac{1}{(A_{11}A_{22} - A_{12}A_{21})} \begin{pmatrix} A_{22} & -A_{12} \\ -A_{21} & A_{11} \end{pmatrix}
+    \end{split}
+    \]
+
+\end{enumerate}
 \vspace{10pt}
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.5} \quad Verify the above properties for $2 \times 2$ determinants.
+\exercise{1.5} Verify the above properties for $2 \times 2$ determinants.
 
 \vspace{10pt}
 \textbf{Solution}
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
 
+\item[1.]
+\[
+\begin{vmatrix}
+A_{11} & 0\\
+A_{21} & 0
+\end{vmatrix}
+=
+(-1)^0A_{11}(0)+(-1)^1(0)A_{21}=0
+\]
+
+\[
+\begin{vmatrix}
+0 & 0\\
+A_{21} & A_{22}
+\end{vmatrix}
+=
+(-1)^0(0)A_{22}+(-1)^1(0)A_{21}=0
+\]
+
+\item[2.]
+\[
+\begin{vmatrix}
+A_{11} & 0\\
+0 & A_{22}
+\end{vmatrix}
+=
+(-1)^0A_{11}A_{22}+(-1)^1(0)(0)
+=
+A_{11}A_{22}
+=
+\prod_{i=1}^{2}A_{ii}
+\]
+
+\item[3.]
+\[
+|A|
+=
+A_{11}A_{22}-A_{12}A_{21}
+\]
+
+\[
+\begin{vmatrix}
+A_{21} & A_{22}\\
+A_{11} & A_{12}
+\end{vmatrix}
+=
+(-1)^0A_{21}A_{12}
++
+(-1)^1A_{22}A_{11}
+=
+-\left(A_{11}A_{22}-A_{12}A_{21}\right)
+\]
+
+\[
+\begin{vmatrix}
+A_{12} & A_{11}\\
+A_{22} & A_{21}
+\end{vmatrix}
+=
+(-1)^0A_{21}A_{12}
++
+(-1)^1A_{22}A_{11}
+=
+-\left(A_{11}A_{22}-A_{12}A_{21}\right)
+\]
+
+\item[4.]
+\[
+\left(\left|
+\begin{matrix}
+A_{11}^{*} & A_{21}^{*}\\
+A_{12}^{*} & A_{22}^{*}
+\end{matrix}
+\right|\right)^*
+=
+\left[
+(-1)^0A_{11}^{*}A_{22}^{*}
++
+(-1)^1A_{12}^{*}A_{21}^{*}
+\right]^{*}
+=
+A_{11}A_{22}
+-
+A_{12}A_{21}
+\]
+
+\item[5.]
+\[
+\begin{vmatrix}
+A_{11}B_{11}+A_{12}B_{21} & A_{11}B_{12}+A_{12}B_{22}\\
+A_{21}B_{11}+A_{22}B_{21} & A_{21}B_{12}+A_{22}B_{22}
+\end{vmatrix}
+\]
+
+\[
+\begin{aligned}
+={}&(-1)^0
+\left(A_{11}B_{11}+A_{12}B_{21}\right)
+\left(A_{21}B_{12}+A_{22}B_{22}\right) \\
+&\quad
++(-1)^1
+\left(A_{11}B_{12}+A_{12}B_{22}\right)
+\left(A_{21}B_{11}+A_{22}B_{21}\right)
+\end{aligned}
+\]
+
+\[
+=
+A_{11}B_{11}A_{22}B_{22}
++
+A_{12}B_{21}A_{21}B_{12}
+\]
+
+\[
+\qquad
+-
+\left(
+A_{11}B_{12}A_{22}B_{21}
++
+A_{12}B_{22}A_{21}B_{11}
+\right)
+\]
+
+
+\[
+=
+\begin{vmatrix}
+A_{11} & A_{12}\\
+A_{21} & A_{22}
+\end{vmatrix}
+\begin{vmatrix}
+B_{11} & B_{12}\\
+B_{21} & B_{22}
+\end{vmatrix}
+\]
+
+\end{enumerate}
 \vspace{10pt}
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.6} \quad Using properties (1)--(5) prove that in general
+\exercise{1.6} Using properties (1)--(5) prove that in general
 
 \begin{enumerate}
 \setlength{\itemsep}{4pt}
@@ -227,7 +472,7 @@ b) If $\mathcal{O}\vec{a} = \vec{b}$ show that $b_i = \sum_j O_{ij} a_j$.
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.7} \quad Using Eq.\ (1.39), note that the inverse of a $2 \times 2$ matrix $\mathbf{A}$ obtained in Exercise 1.4f can be written as
+\exercise{1.7} Using Eq.\ (1.39), note that the inverse of a $2 \times 2$ matrix $\mathbf{A}$ obtained in Exercise 1.4f can be written as
 
 % \vspace{4pt}
 
@@ -256,16 +501,16 @@ Consider the linear system
 \begin{split}
     & A_{11} c_1 + A_{12} c_2 + A_{13} c_3 + \ldots + A_{1N} c_N = 0 \\
     & A_{21} c_1 + A_{22} c_2 + A_{23} c_3 + \ldots + A_{2N} c_N = 0 \\
-    & \ldots\\
+    & \quad \ldots\\
     & A_{N1} c_1 + A_{N2} c_2 + A_{N3} c_3 + \ldots + A_{NN} c_N = 0 \\
 \end{split}
 \]
-that arises from the equation $\mathbf{Ac} = \mathbf{0}$ for an $N \times N$ matrix. Permuting the equations of the linear system does not affect the solution vector $\mathbf{c}$. However, permuting rows of $\mathbf{A}$ changes the sign of $|\mathbf{A}|$. Therefore, it is only possible for a nontrivial solution to exist under the condition $|\mathbf{A}| = -|\mathbf{A}|$, which is only true when $|\mathbf{A}| = 0$. \\
+that arises from the equation $\mathbf{Ac} = \mathbf{0}$ for an $N \times N$ matrix. Permuting these equations does not affect the solution vector $\mathbf{c}$. However, permuting rows of $\mathbf{A}$ changes the sign of $|\mathbf{A}|$. Therefore, it is only possible for a nontrivial solution to exist under the condition $|\mathbf{A}| = -|\mathbf{A}|$, which is only true when $|\mathbf{A}| = 0$. \\
 \vspace{10pt}
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.8} \quad Show that the trace of a matrix is invariant under a unitary transformation, ie., if \\
+\exercise{1.8} Show that the trace of a matrix is invariant under a unitary transformation, ie., if \\
 \[
 \mathbf{\Omega} = \mathbf{U^{\dagger}OU}
 \]
@@ -273,16 +518,22 @@ then show that $\text{tr}\mathbf{\Omega} = \text{tr}\mathbf{O}$.
 
 \vspace{10pt}
 \textbf{Solution}
+\[
+\begin{split}
+    \text{tr}\mathbf{\Omega} & = \sum_j \mathbf{\Omega}_{jj} = \sum_j (\mathbf{U^{\dagger}OU})_{jj} \\[1em]
+    & = \sum_j \sum_{\mu \nu} \mathbf{U^{\dagger}}_{j \mu} \mathbf{O}_{\mu \nu} \mathbf{U}_{\nu j} = \sum_{\mu \nu} \left( \sum_j  \mathbf{U}_{\nu j} \mathbf{U^{\dagger}}_{j \mu} \right) \mathbf{O}_{\mu \nu} \\[1em]
+    & = \sum_{\mu \nu} \delta_{\nu \mu} \mathbf{O}_{\mu \nu} = \sum_{\mu} \mathbf{O}_{\mu \mu} = \text{tr}\mathbf{O}
+\end{split}
+\]
 
 \vspace{10pt}
 \hrule
 \vspace{10pt}
 
-\textbf{Exercise 1.9} \quad Show that Eq.(1.90) contains Eq.(1.87) for all $\alpha = 1, 2,\ldots,N$.
+\exercise{1.9} Show that Eq.(1.90) contains Eq.(1.87) for all $\alpha = 1, 2,\ldots,N$.
 
 \vspace{10pt}
 \textbf{Solution}
-
 \[
 \begin{split}
     \mathbf{Oc}^\alpha = \omega_\alpha \mathbf{c}^\alpha \text{ (1.87)} \quad \quad  \mathbf{OU} = \mathbf{U} \begin{pmatrix}
@@ -311,11 +562,11 @@ c_N^1 & c_N^2 & \cdots & c_N^N
     \vdots & \vdots & \ddots & \vdots \\
     \sum_{j} O_{Nj} c_{j}^1 & \sum_{j} O_{Nj} c_{j}^2 & \ldots & \sum_{j} O_{Nj} c_{j}^N \\
 \end{pmatrix} \\[1em]
-& = \begin{pmatrix}
+& = \boxed{ \begin{pmatrix}
     \mathbf{Oc}^1 & \mathbf{Oc}^2 & \ldots & \mathbf{Oc}^N
 \end{pmatrix} = \begin{pmatrix}
     \omega_1\mathbf{c}^1 & \omega_2\mathbf{c}^2 & \ldots & \omega_3\mathbf{c}^N
-\end{pmatrix} \\[1em]
+\end{pmatrix} }\\[1em]
 & = \begin{pmatrix}
     \omega_1 c_{1}^1 & \omega_2 c_{1}^2 & \ldots & \omega_N c_{1}^N \\
     \omega_1 c_{2}^1 & \omega_2 c_{2}^2 & \ldots & \omega_N c_{2}^N \\
@@ -334,6 +585,821 @@ c_N^1 & c_N^2 & \cdots & c_N^N
 \end{pmatrix} = \mathbf{U}\boldsymbol{\omega}
 \end{split}
 \]
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+% ============================================================
+% Exercise 1.10
+% ============================================================
+
+\exercise{1.10}
+Since the components of an eigenvector can be found from the eigenvalue equation only to within a multiplicative constant, which is later determined by the normalization, one can set $c_1 = 1$ and $c_2 = c$ in Eq.\ (1.94). If this is done, Eq.\ (1.94) becomes
+\[
+O_{11} + O_{12}c = \omega
+\]
+\[
+O_{21} + O_{22}c = \omega c
+\]
+
+After eliminating $c$, find the two roots of the resulting equation and show that they are the same as those given in Eq.\ (1.96). This technique, which we shall use numerous times in the book for finding the lowest eigenvalue of a matrix, is basically the secular determinant approach \textit{without} determinants. Thus one can use it to find the lowest eigenvalue of certain $N \times N$ matrices without having to evaluate an $N \times N$ determinant.
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.11
+% ============================================================
+
+\exercise{1.11}
+Consider the matrices
+\[
+\mathbf{A}
+=
+\begin{pmatrix}
+3 & 1 \\
+1 & 3
+\end{pmatrix}
+\]
+\[
+\mathbf{B}
+=
+\begin{pmatrix}
+3 & 1 \\
+1 & 2
+\end{pmatrix}
+\]
+
+Find numerical values for the eigenvalues and corresponding eigenvectors of these matrices by a) the secular determinant approach; b) the unitary transformation approach. You will see that approach (b) is much easier.
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.12
+% ============================================================
+
+\exercise{1.12}
+Given that
+\[
+\mathbf{U}^{\dagger}\mathbf{A}\mathbf{U}
+=
+\mathbf{a}
+=
+\begin{pmatrix}
+a_1 & & & \\
+& a_2 & & 0 \\
+& & \ddots & \\
+& 0 & & a_N
+\end{pmatrix}
+\]
+or
+\[
+\mathbf{A}\mathbf{c}^{\alpha}
+=
+a_{\alpha}\mathbf{c}^{\alpha},
+\qquad
+\alpha = 1,2,\ldots,N,
+\]
+
+show that
+
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
+
+\item[a.]
+\[
+\det(\mathbf{A}^n)
+=
+a_1^n a_2^n \cdots a_N^n.
+\]
+
+\item[b.]
+\[
+\operatorname{tr}\mathbf{A}^n
+=
+\sum_{\alpha=1}^{N} a_{\alpha}^n.
+\]
+
+\item[c.] If
+\[
+\mathbf{G}(\omega)
+=
+(\omega\mathbf{1}-\mathbf{A})^{-1},
+\]
+then
+\[
+(\mathbf{G}(\omega))_{ij}
+=
+\sum_{\alpha=1}^{N}
+\frac{U_{i\alpha}U_{j\alpha}^{*}}
+{\omega-a_{\alpha}}
+=
+\sum_{\alpha=1}^{N}
+\frac{c_i^{\alpha}c_j^{\alpha *}}
+{\omega-a_{\alpha}}.
+\]
+
+Show that using Dirac notation this can be rewritten as
+\[
+(\mathbf{G}(\omega))_{ij}
+\equiv
+\langle i|\mathbf{G}(\omega)|j\rangle
+=
+\sum_{\alpha}
+\frac{\langle i|\alpha\rangle
+\langle\alpha|j\rangle}
+{\omega-a_{\alpha}}.
+\]
+
+As an interesting application of this relation consider the problem of solving the following set of inhomogeneous linear equations
+\[
+(\omega\mathbf{1}-\mathbf{A})\mathbf{x}
+=
+\mathbf{c}
+\]
+for $\mathbf{x}$. The most straightforward way to proceed is to invert $\omega\mathbf{1}-\mathbf{A}$, i.e.,
+\[
+\mathbf{x}
+=
+(\omega\mathbf{1}-\mathbf{A})^{-1}\mathbf{c}
+=
+\mathbf{G}(\omega)\mathbf{c}.
+\]
+
+If we want $\mathbf{x}$ as a function of $\omega$ we need to invert the matrix for each value of $\omega$. However, if we diagonalize $\mathbf{A}$, we can write
+\[
+x_i
+=
+\sum_j
+(\mathbf{G}(\omega))_{ij}c_j
+=
+\sum_{j\alpha}
+\frac{U_{i\alpha}U_{j\alpha}^{*}c_j}
+{\omega-a_{\alpha}}.
+\]
+
+It is now computationally simple to evaluate $\mathbf{x}$ as a function of $\omega$.
+
+\end{enumerate}
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.13
+% ============================================================
+
+\exercise{1.13}
+If
+\[
+\mathbf{A}
+=
+\begin{pmatrix}
+a & b \\
+b & a
+\end{pmatrix}
+\]
+show that
+\[
+f(\mathbf{A})
+=
+\begin{pmatrix}
+\dfrac{1}{2}\left[f(a+b)+f(a-b)\right]
+&
+\dfrac{1}{2}\left[f(a+b)-f(a-b)\right]
+\\[1em]
+\dfrac{1}{2}\left[f(a+b)-f(a-b)\right]
+&
+\dfrac{1}{2}\left[f(a+b)+f(a-b)\right]
+\end{pmatrix}
+\]
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.14
+% ============================================================
+
+\exercise{1.14}
+Using the above representation of $\delta(x)$, show that
+\[
+a(0)
+=
+\int_{-\infty}^{\infty}
+dx\, a(x)\delta(x).
+\]
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.15
+% ============================================================
+
+\exercise{1.15}
+As a further illustration of the consistency of our notation, consider the matrix representation of an operator $\mathcal{O}$ in the basis $\{\psi_i(x)\}$. Starting with
+\[
+\mathcal{O}\psi_i(x)
+=
+\sum_j \psi_j(x)O_{ji},
+\tag{1}
+\]
+show that
+\[
+O_{ji}
+=
+\int dx\,
+\psi_j^{*}(x)\mathcal{O}\psi_i(x).
+\]
+
+Then using Eqs.\ (1.127a) and (1.138) rewrite (1) in bra-ket notation and show that it is identical to Eq.\ (1.55).
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.16
+% ============================================================
+
+\exercise{1.16}
+Consider the eigenvalue problem
+\[
+\mathcal{O}\phi(x)
+=
+\omega\phi(x)
+\]
+
+By expanding $\phi$ in the complete set
+$\{\psi_i(x),\, i=1,2,\ldots\}$ as
+\[
+\phi(x)
+=
+\sum_{i=1}^{\infty}
+c_i\psi_i(x)
+\]
+show that it becomes equivalent to the matrix eigenvalue problem
+\[
+\mathbf{Oc}
+=
+\omega\mathbf{c}
+\]
+where $(\mathbf{c})_i = c_i$
+and $
+(\mathbf{O})_{ij}
+=
+\int dx\,
+\psi_i^{*}(x)\mathcal{O}\psi_j(x).
+$ Do this with and without using bra-ket notation. Note that $\mathbf{O}$ is an infinite matrix. In practice, we cannot handle infinite matrices. To keep things manageable, one uses only a finite subset of the set $\{\psi_i(x)\}$, i.e., $\{\psi_i(x),\, i=1,2,\ldots,N\}$. If the above analysis is repeated in this subspace, we obtain an $N \times N$ eigenvalue problem. As we shall see in Section 1.3, the corresponding $N$ eigenvalues approximate the true eigenvalues. In particular, we shall prove that the lowest eigenvalue of the truncated eigenvalue problem is greater or equal to the exact lowest eigenvalue.
+
+\vspace{10pt}
+\textbf{Solution} \\[1em]
+Consider the expansion of the eigenvalue problem in the complete basis $\{\psi_i(x),\, i=1,2,\ldots\}$
+
+\[
+\begin{split}
+    \mathcal{O} \left(\sum_{i=1}^{\infty}
+c_i\psi_i(x)\right)
+=
+\omega\left(\sum_{i=1}^{\infty}
+c_i\psi_i(x)\right)
+\end{split}
+\]
+
+Left multiplying by some $\psi_j(x)$ in the set and integrating over both sides yields
+
+\[
+\begin{split}
+    & \sum_{i=1}^{\infty} c_i \int dx \: \psi^*_j(x) \mathcal{O} \psi_i(x) = \omega \sum_{i=1}^{\infty} \delta_{ij} c_i \\[1em]
+    & \sum_{j=1}^{\infty} c_i \int dx \: \psi^*_i(x) \mathcal{O} \psi_j(x) = \omega  c_i
+\end{split}
+\]
+Where we have used the orthogonality of the basis functions to collapse the sum, and relabeled indices. This procedure may be repeated for all $i = 1,2, \ldots$ yielding an infinite number of equations. These equations may be reformulated into an infinite matrix eigenvalue problem:
+
+\[
+\begin{split}
+    & c_1 \int dx \: \psi^*_1(x) \mathcal{O} \psi_1(x) + c_2 \int dx \: \psi^*_1(x) \mathcal{O} \psi_2(x) + \ldots = \omega c_1 \\
+    & c_1 \int dx \: \psi^*_2(x) \mathcal{O} \psi_1(x) + c_2 \int dx \: \psi^*_2(x) \mathcal{O} \psi_2(x) + \ldots = \omega c_2 \\
+    & \qquad\qquad\qquad \vdots \qquad\qquad\qquad\qquad\qquad \vdots \qquad\qquad\qquad\quad \vdots\\[1em]
+    & \qquad\qquad\qquad\qquad\qquad\qquad \Downarrow \\[1em]
+    &\begin{pmatrix}
+     \int dx \: \psi^*_1(x) \mathcal{O} \psi_1(x)  & \int dx \: \psi^*_1(x) \mathcal{O} \psi_2(x) & \ldots  \\
+     \int dx \: \psi^*_2(x) \mathcal{O} \psi_1(x) & \int dx \: \psi^*_2(x) \mathcal{O} \psi_2(x) & \ldots  \\
+    \vdots & \vdots & \ddots 
+    \end{pmatrix} \begin{pmatrix}
+        c_1 \\ c_2 \\ \vdots
+    \end{pmatrix} = \omega \begin{pmatrix}
+        c_1 \\ c_2 \\ \vdots
+    \end{pmatrix}\\[1em]
+\end{split}
+\]
+In dirac notation:
+\[
+\begin{split}
+    & \mathcal{O} | \phi \rangle = \omega | \phi \rangle \\[1em]
+    & \mathcal{O} \left( \sum_{i=1}^{\infty} c_i | i\rangle \right) = \omega \left( \sum_{i=1}^{\infty} c_i | i\rangle \right) \\[1em]
+    & \sum_{j=1}^{\infty} \langle i | \mathcal{O} | j \rangle c_i = \omega c_i
+\end{split}
+\]
+And the matrix representation becomes
+\[
+\begin{split}
+    \begin{pmatrix}
+     \langle 1 | \mathcal{O} | 1 \rangle  & \langle 1 | \mathcal{O} | 2 \rangle & \ldots  \\
+     \langle 2 | \mathcal{O} | 1 \rangle & \langle 2 | \mathcal{O} | 2 \rangle & \ldots  \\
+    \vdots & \vdots & \ddots 
+    \end{pmatrix} \begin{pmatrix}
+        c_1 \\ c_2 \\ \vdots
+    \end{pmatrix} = \omega \begin{pmatrix}
+        c_1 \\ c_2 \\ \vdots
+    \end{pmatrix}
+\end{split}
+\]
+
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.17
+% ============================================================
+
+\exercise{1.17}
+In this subsection we have used a watered-down version of Dirac notation that is sufficient for our purposes but that oversimplifies the deep relationship between vectors and functions. The purpose of this exercise is to provide a glimpse at Dirac notation in its full glory. Consider a denumerably infinite set of complete orthonormal basis vectors, i.e.,
+\[
+\sum_{i=1}^{\infty}
+|i\rangle\langle i|
+=
+\mathds{1},
+\tag{1a}
+\]
+\[
+\langle i|j\rangle
+=
+\delta_{ij}.
+\tag{1b}
+\]
+
+Let us introduce a continuously infinite complete set of basis vectors denoted by $|x\rangle$. The analogue of (1a) is
+\[
+\int dx\, |x\rangle\langle x|
+=
+\mathds{1},
+\tag{2a}
+\]
+that is, we have replaced the summation in (1a) by an integral. If we multiply (2a) on the left by $\langle a|$ and on the right by $|b\rangle$ we have
+\[
+\int dx\,
+\langle a|x\rangle
+\langle x|b\rangle
+=
+\langle a|b\rangle.
+\]
+
+Comparing this to Eq.\ (1.128) suggests that we identify $a^{*}(x)$ with $\langle a|x\rangle$ and $b(x)$ with $\langle x|b\rangle$. Recall that $\langle i|a\rangle$ is the component of $|a\rangle$ along the basis vector $|i\rangle$. Thus we can regard a function $b(x)$ as the $x$ component of the abstract vector $|b\rangle$ in a coordinate system with a continuously infinite number of axes.
+
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+
+\item[a.]
+Multiply (2a) on the left by $\langle i|$ and on the right by $|j\rangle$. Using (1b) show that the resulting equation is identical to Eq.\ (1.116) if
+\[
+\psi_i^{*}(x)
+=
+\langle i|x\rangle,
+\qquad
+\psi_j(x)
+=
+\langle x|j\rangle.
+\]
+
+\item[b.]
+Multiply (1a) by $\langle x|$ on the left and $|x'\rangle$ on the right. Show that the resulting equation is identical to Eq.\ (1.120) if
+\[
+\langle x|x'\rangle
+=
+\delta(x-x').
+\tag{2b}
+\]
+This is just the continuous analogue of (1b).
+
+\item[c.]
+Multiply (2a) by $\langle x'|$ on the left and $|a\rangle$ on the right. Show that the resulting expression is identical to Eq.\ (1.121).
+
+\item[d.]
+Consider an abstract operator $\mathcal{O}$. Its matrix elements in the continuous basis $|x\rangle$ are
+\[
+\langle x|\mathcal{O}|x'\rangle
+=
+O(x,x').
+\]
+
+Starting with the relation
+\[
+\mathcal{O}|a\rangle
+=
+|b\rangle
+\]
+and inserting unity, we have
+\[
+\mathcal{O}|a\rangle
+=
+\mathcal{O}\mathds{1}|a\rangle
+=
+\int dx\,
+\mathcal{O}|x\rangle
+\langle x|a\rangle
+=
+|b\rangle.
+\]
+
+Multiply this equation by $\langle x'|$ and show that the result is identical to Eq.\ (1.133).
+
+\item[e.]
+If
+\[
+O_{ij}
+=
+\langle i|\mathcal{O}|j\rangle,
+\]
+show that
+\[
+O(x,x')
+=
+\sum_{ij}
+\psi_i(x)O_{ij}\psi_j^{*}(x').
+\]
+
+\end{enumerate}
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.18
+% ============================================================
+
+\exercise{1.18}
+The Schr\"odinger equation (in atomic units) of an electron moving in one dimension under the influence of the potential $-\delta(x)$ is
+\[
+\left(
+-\frac{1}{2}\frac{d^2}{dx^2}
+-
+\delta(x)
+\right)
+|\Phi\rangle
+=
+\mathcal{E}|\Phi\rangle.
+\]
+
+Use the variation method with the trial function
+\[
+|\tilde{\Phi}\rangle
+=
+Ne^{-\alpha x^2}
+\]
+to show that $-\pi^{-1}$ is an upper bound to the exact ground state energy, which is $-0.5$. You will need the integral
+\[
+\int_{-\infty}^{\infty}
+dx\,
+x^{2m}e^{-\alpha x^2}
+=
+\frac{(2m)!\pi^{1/2}}
+{2^{2m}m!\alpha^{m+1/2}}.
+\]
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+\exercise{1.19} The Schr\"odinger equation (in atomic units) for the hydrogen atom is
+\[
+\left( -\frac{1}{2}\nabla^2 - \frac{1}{r} \right)|\Phi\rangle
+= \mathcal{E}|\Phi\rangle .
+\]
+
+Use the variation method with the trial function
+\[
+|\tilde{\Phi}\rangle = N e^{-\alpha r^2}
+\]
+
+to show that $-4/3\pi = -0.4244$ is an upper bound to the exact ground state energy (which is $-0.5$). You will need the relations
+\[
+\nabla^2 f(r) = r^{-2}\frac{d}{dr}
+\left( r^2 \frac{d}{dr} \right) f(r)
+\]
+\[
+\int_0^\infty dr\, r^{2m} e^{-\alpha r^2}
+=
+\frac{(2m)!\pi^{1/2}}{2^{2m+1}m!\alpha^{m+1/2}}
+\]
+\[
+\int_0^\infty dr\, r^{2m+1} e^{-\alpha r^2}
+=
+\frac{m!}{2\alpha^{m+1}}
+\]
+
+\vspace{10pt}
+\textbf{Solution} \\[1em]
+First we must normalize the trial function over all space:
+\[
+\begin{split}
+    1 &= \langle \tilde{\Phi}|\tilde{\Phi}\rangle  \\[1em] 1 &= \int_{AS}  (N e^{-\alpha r^2})^* (N e^{-\alpha r^2})\\[1em] 1 & = N^2 \int_0^\infty dr \: r^2 \int_0^\pi d\theta \: sin \theta \int_0^{2\pi} d\phi \:  e^{-2\alpha r^2}\\[1em]
+    \frac{1}{4\pi} & = N^2 \left(\frac{\pi}{16 (2\alpha)^{3}}\right)^{1/2}\\[1em]
+    \therefore N^2 &= \left(\frac{2 \alpha}{\pi}\right)^{3/2}
+\end{split}
+\]
+Where we have used the second relation. Now we may calculate the expectation value as 
+\[
+\begin{split}
+    \langle \tilde{\Phi} |\left( -\frac{1}{2}\nabla^2 - \frac{1}{r} \right)|\tilde{\Phi}\rangle & = \int_0^\infty dr \: r^2 \int_0^\pi d\theta \: sin \theta \int_0^{2\pi} d\phi \: (N e^{-\alpha r^2})^* \left[-\frac{1}{2}\nabla^2 - \frac{1}{r}\right] (N e^{-\alpha r^2})\\[1em]
+    & = 4 \pi N^2 \left[ -\frac{1}{2} \int_0^{\infty}dr \: r^2e^{-\alpha r^2} \:\nabla^2 \: e^{-\alpha r^2} \: -\int_0^{\infty} dr \: r^2e^{-\alpha r^2} \:\frac{1}{r} \: e^{-\alpha r^2}\right] \\[1em]
+    & = 4 \pi \left(\frac{2 \alpha}{\pi}\right)^{3/2} \left[ -\frac{1}{2} \int_0^{\infty}dr \: r^2e^{-\alpha r^2} \:\frac{1}{r^{2}}\frac{d}{dr}
+\left( r^2 \left( \frac{d}{dr} \: e^{-\alpha r^2}\right) \right)\right.\\[1em]
+    &\qquad \qquad \qquad \quad - \left. \int_0^{\infty} dr \: r \: e^{-2\alpha r^2} \: \right] \\[1em]
+    & = 4 \pi \left(\frac{2 \alpha}{\pi}\right)^{3/2} \left[ -\frac{1}{2} \int_0^{\infty}dr \:  4 \alpha^2 r^4 e^{-2\alpha r^2} - 6 \alpha r^2e^{-2\alpha r^2} \right. \\[1em]
+    &\qquad \qquad \qquad \quad \left. -\int_0^{\infty} dr \: r \: e^{-2\alpha r^2} \: \right] \\[1em]
+    & = 4 \pi \left(\frac{2 \alpha}{\pi}\right)^{3/2} \left[ 3 \alpha \left(  \frac{2\pi^{1/2}}{2^{3}(2\alpha)^{3/2}} \right) - 2 \alpha^2 \left( \frac{24 \pi^{1/2}}{2^{6}(2\alpha)^{5/2}}\right) - \frac{1}{4\alpha} \right] \\[1em]
+    & = \frac{3}{2}\alpha - 2\left(\frac{2\alpha}{\pi}\right)^{1/2}
+\end{split}
+\]
+Where we have used all three relations. Next, we must determine the value of $\alpha$ that minimizes the expectation value:
+\[
+\begin{split}
+    & \frac{d}{d\alpha} \left( \frac{3}{2}\alpha - 2\left(\frac{2\alpha}{\pi}\right)^{1/2} \right) = 0 \\[1em]
+    % & \frac{3}{2} - \left(\frac{2}{\pi\alpha}\right)^{1/2} = 0 \\[1em]
+    & \alpha = \frac{8}{9 \pi}
+\end{split}
+\]
+Thus the upper bound to the true ground state energy is 
+\[
+\begin{split}
+     \left. \langle \tilde{\Phi} |\left( -\frac{1}{2}\nabla^2 - \frac{1}{r} \right)|\tilde{\Phi}\rangle \right|_{\alpha = \frac{8}{9\pi}}  &=  \frac{3}{2}\left(\frac{8}{9 \pi}\right) - 2\left(\frac{2}{\pi}\left(\frac{8}{9 \pi}\right)\right)^{1/2}\\[1em]  & = -\frac{4}{3\pi} \: \geq \: \mathcal{E}_0 \: = \: -0.5
+\end{split}
+\]
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+% ============================================================
+% Exercise 1.20
+% ============================================================
+
+\exercise{1.20}
+The variation principle as applied to matrix eigenvalue problems states that if $\mathbf{c}$ is a normalized
+$(\mathbf{c}^{\dagger}\mathbf{c}=1)$ column vector, then
+$\mathbf{c}^{\dagger}\mathbf{Oc}$ is greater or equal to the lowest eigenvalue of $\mathbf{O}$. For the $2\times2$ symmetric matrix $(O_{12}=O_{21})$
+\[
+\mathbf{O}
+=
+\begin{pmatrix}
+O_{11} & O_{12} \\
+O_{12} & O_{22}
+\end{pmatrix}
+\]
+consider the trial vector
+\[
+\mathbf{c}
+=
+\begin{pmatrix}
+\cos\theta \\
+\sin\theta
+\end{pmatrix},
+\]
+which is normalized for any value of $\theta$. Calculate
+\[
+\omega(\theta)
+=
+\mathbf{c}^{\dagger}\mathbf{Oc}
+\]
+and find the value of $\theta$ (i.e., $\theta_0$) for which $\omega(\theta)$ is a minimum. Show that $\omega(\theta_0)$ is exactly equal to the lowest eigenvalue of $\mathbf{O}$ (see Eqs.\ (1.105) and (1.106a)). Why should you have anticipated this result?
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.21
+% ============================================================
+
+\exercise{1.21}
+Consider a normalized trial function $|\tilde{\Phi}'\rangle$ that is orthogonal to the exact ground state wave function, i.e.,
+\[
+\langle\tilde{\Phi}'|\Phi_0\rangle
+=
+0.
+\]
+
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+
+\item[a.]
+Generalize the proof of the variation principle of Subsection 1.3.1 to show that
+\[
+\langle\tilde{\Phi}'|
+\mathcal{H}
+|\tilde{\Phi}'\rangle
+\geq
+\mathcal{E}_1.
+\]
+
+\item[b.]
+Consider the function
+\[
+|\tilde{\Phi}'\rangle
+=
+x|\tilde{\Phi}_0\rangle
++
+y|\tilde{\Phi}_1\rangle,
+\]
+where
+\[
+|\tilde{\Phi}_{\alpha}\rangle,
+\qquad
+\alpha=0,1,
+\]
+are given by Eq.\ (1.168). Show that if it is normalized, then
+\[
+|x|^2 + |y|^2 = 1.
+\]
+
+\item[c.]
+When $x$ and $y$ are chosen so that $|\tilde{\Phi}'\rangle$ is normalized and so that
+\[
+\langle\tilde{\Phi}'|\Phi_0\rangle
+=
+0,
+\]
+then from part (a) it follows that
+\[
+\langle\tilde{\Phi}'|
+\mathcal{H}
+|\tilde{\Phi}'\rangle
+\geq
+\mathcal{E}_1.
+\]
+
+Show that
+\[
+\langle\tilde{\Phi}'|
+\mathcal{H}
+|\tilde{\Phi}'\rangle
+=
+E_1
+-
+|x|^2(E_1-E_0).
+\]
+
+Since $E_1 \geq E_0$, conclude that
+\[
+E_1 \geq \mathcal{E}_1.
+\]
+
+The above argument can be generalized to show that
+\[
+E_{\alpha}
+\geq
+\mathcal{E}_{\alpha},
+\qquad
+\alpha=2,3,\ldots.
+\]
+
+\end{enumerate}
+
+\vspace{10pt}
+\textbf{Solution}
+
+\vspace{10pt}
+\hrule
+\vspace{10pt}
+
+
+% ============================================================
+% Exercise 1.22
+% ============================================================
+
+\exercise{1.22}
+The Schr\"odinger equation (in atomic units) for a hydrogen atom in a uniform electric field $F$ in the $z$ direction is
+\[
+\left(
+-\frac{1}{2}\nabla^2
+-
+\frac{1}{r}
++
+Fr\cos\theta
+\right)
+|\Phi\rangle
+=
+\left(
+\mathcal{H}_0
++
+Fr\cos\theta
+\right)
+|\Phi\rangle
+=
+\mathcal{E}(F)|\Phi\rangle.
+\]
+
+Use the trial function
+\[
+|\tilde{\Phi}\rangle
+=
+c_1|1s\rangle
++
+c_2|2p_z\rangle,
+\]
+where $|1s\rangle$ and $|2p_z\rangle$ are the normalized eigenfunctions of $\mathcal{H}_0$, i.e.,
+\[
+|1s\rangle
+=
+\pi^{-1/2}e^{-r},
+\]
+\[
+|2p_z\rangle
+=
+(32\pi)^{-1/2}
+r e^{-r/2}\cos\theta,
+\]
+to find an upper bound to $\mathcal{E}(F)$. In constructing the matrix representation of $\mathcal{H}$, you can avoid a lot of work by noting that
+\[
+\mathcal{H}_0|1s\rangle
+=
+-\frac{1}{2}|1s\rangle,
+\qquad
+\mathcal{H}_0|2p_z\rangle
+=
+-\frac{1}{8}|2p_z\rangle.
+\]
+
+Using
+\[
+(1+x)^{1/2}
+\simeq
+1+\frac{x}{2},
+\]
+expand your answer in a Taylor series in $F$, i.e.,
+\[
+E(F)
+=
+E(0)
+-
+\frac{1}{2}\alpha F^2
++
+\cdots.
+\]
+
+Show that the coefficient $\alpha$, which is the approximate dipole polarizability of the system, is equal to $2.96$. The exact result is $4.5$.
+
+\vspace{10pt}
+\textbf{Solution}
+
 \vspace{10pt}
 \hrule
 \vspace{10pt}
